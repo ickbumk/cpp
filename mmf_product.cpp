@@ -4,45 +4,6 @@
 #include <fstream>
 #include <sstream>
 
-std::vector<std::vector<double>> readMMformat(const std::string & filename){
-    std::ifstream file(filename);
-
-    std::string line;
-
-    std::getline(file, line); //
-    while (line.substr(0,2) == "%%") { 
-        // if it is a header
-        std::cout << "The header says: " << line << " \n";
-        std::getline(file,line); // skip to the next line
-    }
-
-    std::getline(file, line);
-    while (line.substr(0,2) == "%") {
-        // if it is a comment
-        std::cout << "The comments says: " << line << " \n";
-        std::getline(file, line); // skip to the next line
-    }
-
-    std::stringstream ss(line);
-
-    size_t n_row, n_col, entry;
-
-    ss>>n_row>> n_col>> entry;
-
-    std::vector<std::vector<double>> result(n_row, std::vector<double>(n_col, 0.0)); //initialize the result matrix
-    
-    for (size_t i = 0; i < entry; i++){
-        std::getline(file, line);
-        std::stringstream ss(line);
-        size_t row, col;
-        double val;
-        ss >> row >> col>> val;
-        result[row-1][col-1] = val;
-    }
-    file.close();
-    return result;
-}
-
 std::vector<double> readMMformat_vector(const std::string & filename){
     std::ifstream file(filename);
 
@@ -132,14 +93,16 @@ void saveMMfile(const std::string & filename, const std::vector<std::vector<doub
     size_t ncol = matrix[0].size();
 
     file << "%%MatrixMarket matrix array real general\n";
-    file << nrow << ncol << nrow << "\n";
-
-    for (size_t i = 0; i< nrow; ++i){
-        for (size_t j = 0; j < ncol; ++i){
-            file << i << j << matrix[i][j] << "\n";
+    file << nrow << " " << ncol << " "<< nrow << "\n";
+    
+    for (size_t i = 0; i< nrow; i++){
+        for (size_t j = 0; j < ncol; j++){
+            if (matrix[i][j] != 0.0){
+                file << i << " "<< j << " "<< matrix[i][j] << "\n"; 
+            }
+            
         }
     }
-
     file.close();
 }
 
@@ -158,6 +121,42 @@ void saveMMfile_vector(const std::string & filename, const std::vector<double> &
     file.close();
 }
 
+std::vector<std::vector<double>> readMMformat(const std::string & filename){
+    std::ifstream file(filename);
+
+    
+
+    std::string line;
+
+    std::getline(file, line);
+    while (line.substr(0,1) == "%") {
+        // if it is a comment
+        std::cout << "The comments says: " << line << " \n";
+        std::getline(file, line); // skip to the next line
+    }
+
+    std::stringstream ss(line);
+
+    size_t n_row, n_col, entry;
+
+    ss>>n_row>> n_col>> entry;
+
+    std::vector<std::vector<double>> result(n_row, std::vector<double>(n_col, 0.0)); //initialize the result matrix
+    
+    for (size_t i = 0; i < entry; i++){
+        std::getline(file, line);
+        std::stringstream ss(line);
+        size_t row, col;
+        double val;
+        ss >> row >> col>> val;
+        result[row-1][col-1] = val;
+    }
+
+    file.close();
+
+    return result;
+}
+
 
 int main() {
     std::string matA, matB;
@@ -174,7 +173,6 @@ int main() {
     std::cin >> computationType;
 
     std::vector<std::vector<double>> matrixA = readMMformat(matA);
-    /* 
 
     if (computationType == 0){
         std::vector<double> matrixB = readMMformat_vector(matB);
@@ -187,8 +185,8 @@ int main() {
         std::vector<std::vector<double>> matrixB = readMMformat(matB);
         std::vector<std::vector<double>> result;
         result = mat_mat(matrixA, matrixB);
+
         saveMMfile("result.mm", result);
     }
- */
     return 0;
 }
