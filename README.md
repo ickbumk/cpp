@@ -17,6 +17,8 @@ _mmf_product.cpp_ contains the master code for the aforementioned operations.
 You can take a look at either the individual code or test out sample cases by just double clicking the executables. With the same filename as the cpp files without any extension.
 
 Please note that executing the _mmf_product_ file requires you to specify the computation type:
+
+
 0. Matrix vector product
 1. Matrix matrix product
 
