@@ -10,8 +10,11 @@
 #include "gauss_lobotto.hpp"
 #include "chebyshev.hpp"
 
+// main file that implements different integration methods
+
 
 double integrate(const scalar_function& func, double a, double b, const integration_rule& rule){
+    // integration function which integrates the given function between the limits and given rule
     double scale = (b-a)/2.0;
     double midpoint = (a+b)/2.0;
     double result = 0.0;

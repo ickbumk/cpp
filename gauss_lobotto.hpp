@@ -6,6 +6,9 @@
 #include <stdexcept>
 #include "integration_rule.hpp"
 
+// Implmementation of gauss lobotto integration method.
+// Provides nodes and weights based on the number of points (user input)
+
 integration_rule get_gauss_lobotto(int num_points){
     switch (num_points) {
         case 3: {

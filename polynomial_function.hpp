@@ -4,6 +4,9 @@
 #include <vector>
 #include "scalarfunction.hpp"
 
+// initialization of polynomial function class. The operator from the base scalarfunction class is overriden.
+// Constructs the polynomial function based on the coefficients provided by the user.
+
 class polynomial_function : public scalar_function{
     public:
     polynomial_function(const std::vector<double> & coefficients) : coefficients_(coefficients){}

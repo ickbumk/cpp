@@ -4,6 +4,9 @@
 #include <vector>
 #include <stdexcept>
 
+// Class initialization for the integration assignment
+// Integration rule can be specified with different methods (gauss legendre, gauss lobotto, chebyshev)
+
 class integration_rule {
     public:
     // constructor initialization of the integration nodes (sampling locations and weight pairs)

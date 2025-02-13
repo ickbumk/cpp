@@ -6,6 +6,8 @@
 #include <stdexcept>
 #include "integration_rule.hpp"
 
+//implementation of chebyshev integration method. The weights and nodes are calulcated in iteration.
+
 integration_rule get_chebyshev(int num_points){
     if (num_points < 1){
         throw std::invalid_argument("You need more points than that!");

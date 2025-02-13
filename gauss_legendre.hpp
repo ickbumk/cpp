@@ -6,6 +6,10 @@
 #include <stdexcept>
 #include "integration_rule.hpp"
 
+
+//Implementation of gauss legendre integration approach. 
+//It provides different nodes and weights based on the number of points (user input)
+
 integration_rule get_gauss_legendre(int num_points){
     switch (num_points) {
         case 1: {
