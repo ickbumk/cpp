@@ -3,7 +3,7 @@
 
 
 #include <vector>
-#include <utility> // this enables the usage of std::pair for storing (sample location, weight)
+/* #include <utility> // this enables the usage of std::pair for storing (sample location, weight) */
 
 /* 
 Assumptions :
